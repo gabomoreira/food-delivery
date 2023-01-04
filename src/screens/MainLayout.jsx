@@ -21,7 +21,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 import {getSelectedTab, setSelectedTab} from '../store/tab/tabSlice';
 import {Header} from '../components/Header';
-import {useEffect} from 'react';
+import {useEffect, useRef} from 'react';
+import {Home} from './Home';
+import {Search} from './Search';
+import {Cart} from './Cart';
+import {Favourite} from './Favourite';
+import {Notification} from './Notification';
 
 const TabButton = ({
   label,
@@ -79,6 +84,8 @@ export const MainLayout = ({navigation}) => {
   const selectedTab = useSelector(state => getSelectedTab(state));
   const dispatch = useDispatch();
 
+  const flatListRef = useRef();
+
   const homeTabFlex = useSharedValue(1);
   const homeTabColor = useSharedValue(COLORS.white);
   const searchTabFlex = useSharedValue(1);
@@ -121,6 +128,11 @@ export const MainLayout = ({navigation}) => {
 
   useEffect(() => {
     if (selectedTab === constants.screens.home) {
+      flatListRef?.current?.scrollToIndex({
+        index: 0,
+        animated: false,
+      });
+
       homeTabFlex.value = withTiming(4, {duration: 500});
       homeTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
@@ -129,6 +141,11 @@ export const MainLayout = ({navigation}) => {
     }
 
     if (selectedTab === constants.screens.search) {
+      flatListRef?.current?.scrollToIndex({
+        index: 1,
+        animated: false,
+      });
+
       searchTabFlex.value = withTiming(4, {duration: 500});
       searchTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
@@ -137,6 +154,11 @@ export const MainLayout = ({navigation}) => {
     }
 
     if (selectedTab === constants.screens.cart) {
+      flatListRef?.current?.scrollToIndex({
+        index: 2,
+        animated: false,
+      });
+
       cartTabFlex.value = withTiming(4, {duration: 500});
       cartTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
@@ -145,6 +167,11 @@ export const MainLayout = ({navigation}) => {
     }
 
     if (selectedTab === constants.screens.favourite) {
+      flatListRef?.current?.scrollToIndex({
+        index: 3,
+        animated: false,
+      });
+
       favouriteTabFlex.value = withTiming(4, {duration: 500});
       favouriteTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
@@ -153,6 +180,11 @@ export const MainLayout = ({navigation}) => {
     }
 
     if (selectedTab === constants.screens.notification) {
+      flatListRef?.current?.scrollToIndex({
+        index: 4,
+        animated: false,
+      });
+
       notificationTabFlex.value = withTiming(4, {duration: 500});
       notificationTabColor.value = withTiming(COLORS.primary, {duration: 500});
     } else {
@@ -222,7 +254,32 @@ export const MainLayout = ({navigation}) => {
         style={{
           flex: 1,
         }}>
-        <Text>MainLayout</Text>
+        <FlatList
+          ref={flatListRef}
+          horizontal
+          scrollEnabled={false}
+          pagingEnabled
+          snapToAlignment="center"
+          snapToInterval={SIZES.width}
+          showsHorizontalScrollIndicator={false}
+          data={constants.bottom_tabs}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => (
+            <View
+              style={{
+                height: SIZES.height,
+                width: SIZES.width,
+              }}>
+              {item.label === constants.screens.home && <Home />}
+              {item.label === constants.screens.search && <Search />}
+              {item.label === constants.screens.cart && <Cart />}
+              {item.label === constants.screens.favourite && <Favourite />}
+              {item.label === constants.screens.notification && (
+                <Notification />
+              )}
+            </View>
+          )}
+        />
       </View>
 
       {/* Footer */}
