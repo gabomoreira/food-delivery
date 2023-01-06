@@ -54,8 +54,18 @@ export const SIZES = {
 export const FONTS = {
   largeTitle: {fontFamily: 'Poppins-Black', fontSize: SIZES.largeTitle},
   h1: {fontFamily: 'Poppins-Bold', fontSize: SIZES.h1, lineHeight: 36},
-  h2: {fontFamily: 'Poppins-Bold', fontSize: SIZES.h2, lineHeight: 30},
-  h3: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h3, lineHeight: 22},
+  h2: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: SIZES.h2,
+    lineHeight: 30,
+    fontWeight: 'bold',
+  },
+  h3: {
+    fontFamily: 'Poppins-SemiBold',
+    fontSize: SIZES.h3,
+    lineHeight: 22,
+    fontWeight: 'bold',
+  },
   h4: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h4, lineHeight: 22},
   h5: {fontFamily: 'Poppins-SemiBold', fontSize: SIZES.h5, lineHeight: 22},
   body1: {fontFamily: 'Poppins-Regular', fontSize: SIZES.body1, lineHeight: 36},
