@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react';
 import {
   FlatList,
   Image,
+  StatusBar,
   Text,
   TextInput,
   TouchableOpacity,
@@ -11,6 +12,7 @@ import {HorizontalFoodCard} from '../../components/HorizontalFoodCard';
 import {VerticalFoodCard} from '../../components/VerticalFoodCard';
 
 import {SIZES, COLORS, FONTS, icons, dummyData} from '../../constants';
+import {FilterModal} from './FilterModal';
 
 export const Home = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState(1);
