@@ -9,8 +9,10 @@ import {
   StatusBar,
 } from 'react-native';
 import {IconButton} from '../../../components/IconButton';
+import {TextButton} from '../../../components/TextButton';
+import {TextIconButton} from '../../../components/TextIconButton';
 import {TwoPointsSlider} from '../../../components/TwoPointsSlider';
-import {COLORS, FONTS, icons, SIZES} from '../../../constants';
+import {COLORS, constants, FONTS, icons, SIZES} from '../../../constants';
 
 const Section = ({containerStyle, title, children}) => {
   return (
@@ -27,6 +29,9 @@ const Section = ({containerStyle, title, children}) => {
 
 export const FilterModal = ({isVisible, onClose}) => {
   const [showFilterModal, setShowFilterModal] = useState(isVisible);
+  const [deliveryTime, setDeliveryTime] = useState('');
+  const [ratings, setRatings] = useState('');
+  const [tags, setTags] = useState('');
 
   const modalAnimatedValue = useRef(new Animated.Value(0)).current;
 
@@ -61,6 +66,90 @@ export const FilterModal = ({isVisible, onClose}) => {
           postfix="km"
           onValuesChange={values => console.log(values, '-------values------')}
         />
+      </Section>
+    );
+  };
+
+  const DeliveryTime = () => {
+    return (
+      <Section title="Delivery Time" containerStyle={{marginTop: 40}}>
+        <View
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            marginTop: SIZES.radius,
+          }}>
+          {constants.delivery_time.map((item, index) => (
+            <TextButton
+              key={index}
+              label={item.label}
+              labelStyle={{
+                color: item.id === deliveryTime ? COLORS.white : COLORS.gray,
+                ...FONTS.body3,
+              }}
+              buttonContainerStyle={{
+                width: '30%',
+                height: 50,
+                margin: 5,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: SIZES.base,
+                backgroundColor:
+                  item.id === deliveryTime ? COLORS.primary : COLORS.lightGray2,
+              }}
+              onPress={() => setDeliveryTime(item.id)}
+            />
+          ))}
+        </View>
+      </Section>
+    );
+  };
+
+  const PricingRange = () => {
+    return (
+      <Section title="Princing Range">
+        <View style={{alignItems: 'center'}}>
+          <TwoPointsSlider
+            values={[10, 50]}
+            min={1}
+            max={100}
+            prefix="R$"
+            postfix=""
+            onValuesChange={values => console.log(values)}
+          />
+        </View>
+      </Section>
+    );
+  };
+
+  const Ratings = () => {
+    return (
+      <Section title="Rating" containerStyle={{marginTop: 40}}>
+        <View style={{flexDirection: 'row'}}>
+          {constants.ratings.map((item, index) => (
+            <TextIconButton
+              key={index}
+              containerStyle={{
+                flex: 1,
+                height: 50,
+                margin: 5,
+                alignItems: 'center',
+                borderRadius: SIZES.base,
+                backgroundColor:
+                  item.id === ratings ? COLORS.primary : COLORS.lightGray2,
+              }}
+              label={item.label}
+              labelStyle={{
+                color: item.id === ratings ? COLORS.white : COLORS.gray,
+              }}
+              icon={icons.star}
+              iconStyle={{
+                tintColor: item.id === ratings ? COLORS.white : COLORS.gray,
+              }}
+              onPress={() => setRatings(item.id)}
+            />
+          ))}
+        </View>
       </Section>
     );
   };
@@ -127,6 +216,15 @@ export const FilterModal = ({isVisible, onClose}) => {
               contentContainerStyle={{paddingBottom: 250}}>
               {/* Distance */}
               <Distance />
+
+              {/* DeliveryTime */}
+              <DeliveryTime />
+
+              {/* DeliveryTime */}
+              <PricingRange />
+
+              {/* Ratings */}
+              <Ratings />
             </ScrollView>
           </Animated.View>
         </View>

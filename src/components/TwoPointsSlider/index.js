@@ -2,7 +2,7 @@ import React from 'react';
 
 import {View, Text, StyleSheet} from 'react-native';
 import MultiSlider from '@ptomasroos/react-native-multi-slider';
-import {COLORS, SIZES} from '../../constants';
+import {COLORS, FONTS, SIZES} from '../../constants';
 
 export const TwoPointsSlider = ({
   values,
@@ -47,12 +47,18 @@ export const TwoPointsSlider = ({
               ...styles.shadow,
             }}
           />
-          <Text>
+          <Text
+            style={{
+              marginTop: 5,
+              color: COLORS.darkGray,
+              ...FONTS.body4,
+            }}>
             {prefix}
             {e.currentValue} {postfix}
           </Text>
         </View>
       )}
+      onValuesChange={values => onValuesChange(values)}
     />
   );
 };
