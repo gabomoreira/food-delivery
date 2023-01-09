@@ -154,8 +154,38 @@ export const FilterModal = ({isVisible, onClose}) => {
     );
   };
 
+  const Tags = () => {
+    return (
+      <Section title="Tags">
+        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+          {constants.tags.map((item, index) => (
+            <TextButton
+              key={index}
+              label={item.label}
+              labelStyle={{
+                color: item.id === tags ? COLORS.white : COLORS.gray,
+                ...FONTS.body3,
+              }}
+              buttonContainerStyle={{
+                height: 50,
+                margin: 5,
+                paddingHorizontal: SIZES.padding,
+                alignItems: 'center',
+                justifyContent: 'center',
+                borderRadius: SIZES.base,
+                backgroundColor:
+                  item.id === tags ? COLORS.primary : COLORS.lightGray2,
+              }}
+              onPress={() => setTags(item.id)}
+            />
+          ))}
+        </View>
+      </Section>
+    );
+  };
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: 'red'}}>
       <StatusBar barStyle="light-content" />
 
       <Modal
@@ -213,7 +243,7 @@ export const FilterModal = ({isVisible, onClose}) => {
 
             <ScrollView
               showsVerticalScrollIndicator={false}
-              contentContainerStyle={{paddingBottom: 250}}>
+              contentContainerStyle={{paddingBottom: 100}}>
               {/* Distance */}
               <Distance />
 
@@ -225,7 +255,36 @@ export const FilterModal = ({isVisible, onClose}) => {
 
               {/* Ratings */}
               <Ratings />
+
+              {/* Tags */}
+              <Tags />
             </ScrollView>
+
+            {/* Apply Button */}
+            <View
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 110,
+                paddingHorizontal: SIZES.padding,
+                paddingVertical: SIZES.radius,
+                backgroundColor: COLORS.white,
+              }}>
+              <TextButton
+                label="Aplicar Filtros"
+                labelStyle={{color: COLORS.white}}
+                buttonContainerStyle={{
+                  height: 50,
+                  borderRadius: SIZES.base,
+                  backgroundColor: COLORS.primary,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}
+                onPress={() => console.log('Apply filters')}
+              />
+            </View>
           </Animated.View>
         </View>
       </Modal>
